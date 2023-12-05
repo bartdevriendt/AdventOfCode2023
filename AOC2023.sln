@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AOC2023", "AOC2023.csproj", "{E5F869A5-EFDF-4F55-A214-0008C3654E1D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AOC2023", "src/AOC2023.csproj", "{E5F869A5-EFDF-4F55-A214-0008C3654E1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AOC2023.Tests", "test/AOC2023.Tests\AOC2023.Tests.csproj", "{90399147-4051-4EF3-8F43-E2D61DF6DB54}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +14,9 @@ Global
 		{E5F869A5-EFDF-4F55-A214-0008C3654E1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5F869A5-EFDF-4F55-A214-0008C3654E1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5F869A5-EFDF-4F55-A214-0008C3654E1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90399147-4051-4EF3-8F43-E2D61DF6DB54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90399147-4051-4EF3-8F43-E2D61DF6DB54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90399147-4051-4EF3-8F43-E2D61DF6DB54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90399147-4051-4EF3-8F43-E2D61DF6DB54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
