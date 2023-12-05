@@ -1,4 +1,5 @@
-﻿using AOC2023.Puzzles;
+﻿using System.Diagnostics;
+using AOC2023.Puzzles;
 using Spectre.Console;
 using Spectre.Console.Cli;
 
@@ -42,6 +43,10 @@ public class PuzzleCommand : Command<PuzzleCommandSettings>
             return -1;
         }
         
+        Stopwatch sw = Stopwatch.StartNew();
+        
+        AnsiConsole.MarkupLine($"[green]Start {DateTime.Now}[/]");
+        
         switch (settings.Part)
         {
             case 1:
@@ -54,6 +59,8 @@ public class PuzzleCommand : Command<PuzzleCommandSettings>
                 AnsiConsole.WriteLine("[red]Part not found[/]");
                 return -1;
         }
+        sw.Stop();
+        AnsiConsole.MarkupLine($"[green]End {DateTime.Now} in {sw.Elapsed.TotalSeconds}[/]");
 
         return 0;
     }

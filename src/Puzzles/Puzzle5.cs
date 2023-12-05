@@ -145,60 +145,102 @@ public class Puzzle5 : PuzzleBase
         var content = ReadFullFile("Data//puzzle5.txt");
         AnsiConsole.WriteLine("File read");
         ProcessFile(content);
-        AggregateMappings();
+        //AggregateMappings();
         SearchLowestLocationPart2();
     }
     
-    private void AggregateMappings()
-    {
-        var result = new List<SeedMapping>(seedToSoil);
-        
-
-        List<List<SeedMapping>> lists = new List<List<SeedMapping>>()
-        {
-            soilToFert, fertToWater, waterToLight, lightToTemp, tempToHumid, humidToLoc
-        };
-
-        foreach (var list in lists)
-        {
-            var currentList = new List<SeedMapping>();
-            foreach (var mapping in result)
-            {
-                foreach (var mapping2 in list)
-                {
-                    var intersect = mapping.Intersect(mapping2);
-                    if(intersect!= null)
-                        currentList.Add(intersect);
-                }    
-            }
-
-            result = currentList;
-        }
-
-        foreach (var maping in result)
-        {
-            if(maping.SourceEnd - maping.SourceStart != maping.DestinationEnd - maping.DestinationStart)
-                throw new Exception("Mapping is not 1:1");
-        }
-        
-        compressed = result.OrderBy(x => x.SourceStart).ToList();
-    }
+    // private void AggregateMappings()
+    // {
+    //     var result = new List<SeedMapping>(seedToSoil);
+    //     
+    //
+    //     List<List<SeedMapping>> lists = new List<List<SeedMapping>>()
+    //     {
+    //         soilToFert, fertToWater, waterToLight, lightToTemp, tempToHumid, humidToLoc
+    //     };
+    //
+    //     foreach (var list in lists)
+    //     {
+    //         var currentList = new List<SeedMapping>();
+    //         foreach (var mapping in result)
+    //         {
+    //             foreach (var mapping2 in list)
+    //             {
+    //                 var intersect = mapping.Intersect(mapping2);
+    //                 if(intersect!= null)
+    //                     currentList.Add(intersect);
+    //             }    
+    //         }
+    //
+    //         result = currentList;
+    //     }
+    //
+    //     foreach (var maping in result)
+    //     {
+    //         if(maping.SourceEnd - maping.SourceStart != maping.DestinationEnd - maping.DestinationStart)
+    //             throw new Exception("Mapping is not 1:1");
+    //     }
+    //     
+    //     compressed = result.OrderBy(x => x.SourceStart).ToList();
+    // }
     
     private void SearchLowestLocationPart2()
     {
         long lowest = Int64.MaxValue;
 
+        List<SeedRange> ranges = new List<SeedRange>();
+
         for (var index = 0; index < seedsToTest.Count; index += 2)
         {
-            AnsiConsole.WriteLine($"{DateTime.Now.ToString()} Testing {seedsToTest[index + 1]} seeds " + seedsToTest[index] + " to " +  (seedsToTest[index] + seedsToTest[index + 1]).ToString() + " for lowest location");
+            
             var seedStart = seedsToTest[index];
             var seedEnd = seedsToTest[index + 1];
-
             
-            var result = TestSeed(seedStart, compressed);
-            if (result < lowest)
-                lowest = result;
-            //
+            ranges.Add(new SeedRange(seedStart, seedStart + seedEnd - 1));
+        }
+        
+        List<List<SeedMapping>> lists = new List<List<SeedMapping>>()
+        {
+           seedToSoil, soilToFert, fertToWater, waterToLight, lightToTemp, tempToHumid, humidToLoc
+        };
+
+
+        
+        
+        foreach (var list in lists)
+        {
+            List<SeedRange> newRanges = new List<SeedRange>();
+            foreach (var range in ranges)
+            {
+                range.Mapped = false;
+            }
+            foreach (var mapping in list)
+            {
+                foreach (var range in ranges)
+                {
+                    if (range.Mapped)
+                    {
+                        newRanges.Add(range);
+                        continue;
+                    }
+                       
+                    var result = mapping.Map(range);
+                    newRanges.AddRange(result);
+                }
+
+                ranges = new List<SeedRange>(newRanges);
+                newRanges.Clear();
+            }
+        }
+        
+        var sortedresult = ranges.OrderBy(x => x.Start).ToList();
+        
+        AnsiConsole.WriteLine("Lowest location is " + sortedresult[0].Start);
+
+        // var result = TestSeed(seedStart, compressed);
+            // if (result < lowest)
+            //     lowest = result;
+            
             // AnsiConsole.Progress().Start((ctx) =>
             // {
             //
@@ -227,8 +269,8 @@ public class Puzzle5 : PuzzleBase
             //
             //     }
             // });
-        }
-        AnsiConsole.WriteLine("Lowest location is " + lowest);
+        //}
+        //AnsiConsole.WriteLine("Lowest location is " + lowest);
     
         
     }
