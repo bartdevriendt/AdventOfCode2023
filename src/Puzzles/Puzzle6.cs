@@ -26,11 +26,7 @@ public class Puzzle6 : PuzzleBase
         int result = 1;
         foreach(var boatInfo in boatInfos.Take(4))
         {
-            result *= Enumerable.Range(0, boatInfo.Time + 1).Count(x =>
-            {
-                AnsiConsole.WriteLine($"Testing {x}");
-                return _distanceRecord.Invoke(boatInfo, x);
-            });
+            result *= Enumerable.Range(0, boatInfo.Time + 1).Count(x => _distanceRecord.Invoke(boatInfo, x));
         }
         
         AnsiConsole.WriteLine($"Result: {result}");
