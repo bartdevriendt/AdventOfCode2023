@@ -145,44 +145,8 @@ public class Puzzle5 : PuzzleBase
         var content = ReadFullFile("Data//puzzle5.txt");
         AnsiConsole.WriteLine("File read");
         ProcessFile(content);
-        //AggregateMappings();
         SearchLowestLocationPart2();
     }
-    
-    // private void AggregateMappings()
-    // {
-    //     var result = new List<SeedMapping>(seedToSoil);
-    //     
-    //
-    //     List<List<SeedMapping>> lists = new List<List<SeedMapping>>()
-    //     {
-    //         soilToFert, fertToWater, waterToLight, lightToTemp, tempToHumid, humidToLoc
-    //     };
-    //
-    //     foreach (var list in lists)
-    //     {
-    //         var currentList = new List<SeedMapping>();
-    //         foreach (var mapping in result)
-    //         {
-    //             foreach (var mapping2 in list)
-    //             {
-    //                 var intersect = mapping.Intersect(mapping2);
-    //                 if(intersect!= null)
-    //                     currentList.Add(intersect);
-    //             }    
-    //         }
-    //
-    //         result = currentList;
-    //     }
-    //
-    //     foreach (var maping in result)
-    //     {
-    //         if(maping.SourceEnd - maping.SourceStart != maping.DestinationEnd - maping.DestinationStart)
-    //             throw new Exception("Mapping is not 1:1");
-    //     }
-    //     
-    //     compressed = result.OrderBy(x => x.SourceStart).ToList();
-    // }
     
     private void SearchLowestLocationPart2()
     {
@@ -203,9 +167,6 @@ public class Puzzle5 : PuzzleBase
         {
            seedToSoil, soilToFert, fertToWater, waterToLight, lightToTemp, tempToHumid, humidToLoc
         };
-
-
-        
         
         foreach (var list in lists)
         {
@@ -236,42 +197,6 @@ public class Puzzle5 : PuzzleBase
         var sortedresult = ranges.OrderBy(x => x.Start).ToList();
         
         AnsiConsole.WriteLine("Lowest location is " + sortedresult[0].Start);
-
-        // var result = TestSeed(seedStart, compressed);
-            // if (result < lowest)
-            //     lowest = result;
-            
-            // AnsiConsole.Progress().Start((ctx) =>
-            // {
-            //
-            //     var task = ctx.AddTask("Searching seeds", new ProgressTaskSettings
-            //     {
-            //         AutoStart = false,
-            //         MaxValue = seedEnd
-            //     });
-            //     
-            //     for (long seed = seedStart; seed <= seedStart + seedEnd; seed++)
-            //     {
-            //         
-            //         task.Increment(1);
-            //         //if((seed % 1000) == 0) AnsiConsole.WriteLine("Another 1000");
-            //         
-            //         //AnsiConsole.WriteLine("Testing seed " + seed + " for lowest location");
-            //         var result = TestSeed(seed, compressed);
-            //         // result = TestSeed(result, soilToFert);
-            //         // result = TestSeed(result, fertToWater);
-            //         // result = TestSeed(result, waterToLight);
-            //         // result = TestSeed(result, lightToTemp);
-            //         // result = TestSeed(result, tempToHumid);
-            //         // result = TestSeed(result, humidToLoc);
-            //         if (result < lowest)
-            //             lowest = result;
-            //
-            //     }
-            // });
-        //}
-        //AnsiConsole.WriteLine("Lowest location is " + lowest);
-    
         
     }
 }
