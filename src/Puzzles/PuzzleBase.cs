@@ -63,4 +63,26 @@ public abstract class PuzzleBase
 
         return m;
     }
+    
+    protected void PrintMatrix<T>(Matrix<T> matrix)
+        where T: struct, IFormattable, IEquatable<T>
+    {
+
+            
+        //Console.WriteLine(matrix);
+
+        for (int r = 0; r < matrix.RowCount; r++)
+        {
+            for (int c = 0; c < matrix.ColumnCount; c++)
+            {
+                Console.Write(matrix[r, c].ToString("G0", System.Globalization.CultureInfo.InvariantCulture) + " ");
+            }
+            Console.WriteLine("");
+        }
+            
+        //for (int x = 0; x < matrix.ColumnCount; x++)
+        //{
+
+        //}
+    }
 }
