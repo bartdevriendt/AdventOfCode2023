@@ -115,17 +115,17 @@ public class Puzzle14 : PuzzleBase
         //PrintMatrix(platform);
     }
 
-    private void CalculateLoad()
+    private void CalculateLoad(Matrix<float> p)
     {
 
         int totalLoad = 0;
         
-        for (int r = 0; r < platform.RowCount; r++)
+        for (int r = 0; r < p.RowCount; r++)
         {
-            for (int c = 0; c < platform.ColumnCount; c++)
+            for (int c = 0; c < p.ColumnCount; c++)
             {
-                if (platform[r, c] == 2f)
-                    totalLoad += platform.RowCount - r;
+                if (p[r, c] == 2f)
+                    totalLoad += p.RowCount - r;
 
             }
         }
@@ -162,7 +162,7 @@ public class Puzzle14 : PuzzleBase
         test.Select((i, j) => (i, j));
 
         //PrintMatrix(platform);
-        CalculateLoad();
+        CalculateLoad(platform);
     }
 
     public override void Part1()
@@ -173,6 +173,6 @@ public class Puzzle14 : PuzzleBase
         AnsiConsole.WriteLine("File read");
         TiltPlatform(Direction.North);
         PrintMatrix(platform);
-        CalculateLoad();
+        CalculateLoad(platform);
     }
 }
